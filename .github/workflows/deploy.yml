@@ -5,7 +5,7 @@ on:
     branches: ["main"]
 
 env:
-  IMAGE_NAME: ${{ toLower(github.repository_owner) }}/${{ toLower(github.repository) }}
+  IMAGE_NAME: ${{ tolower(github.repository_owner) }}/${{ tolower(github.repository) }}
 
 jobs:
   build-and-push:
