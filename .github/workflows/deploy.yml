@@ -64,11 +64,17 @@ jobs:
           docker stop node-service 2>/dev/null || true
           docker rm node-service 2>/dev/null || true
 
+          cat > .env.prod << EOF
+          APP_USERNAME=$APP_USERNAME
+          APP_PASSWORD=$APP_PASSWORD
+          APP_SECRET_MESSAGE=$APP_SECRET_MESSAGE
+          EOF
+
           docker run -d \
             --name node-service \
             --restart always \
             -p 3000:3000 \
-            -e APP_USERNAME="$APP_USERNAME" \
-            -e APP_PASSWORD="$APP_PASSWORD" \
-            -e APP_SECRET_MESSAGE="$APP_SECRET_MESSAGE" \
+            --env-file .env.prod \
             "$IMAGE_NAME:$IMAGE_TAG"
+
+          rm -f .env.prod
